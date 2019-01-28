@@ -1,0 +1,107 @@
+---------------------------------------------------
+SINGLE-THREADED SERVER TESTS ON localhost:12345
+---------------------------------------------------
+[TEST: IsAlive]
+PASSED
+
+[TEST: GetPid]
+PASSED
+
+[TEST: GetMembershipCount]
+PASSED
+
+[TEST: Invalid command]
+PASSED
+
+[TEST: Basic PUT -> GET -> REMOVE -> GET, all with same key]
+PASSED
+
+[TEST: Overwrite a previous value]
+PASSED
+
+[TEST: GET & REMOVE on non-existent key]
+PASSED
+
+[TEST: Extra arguments in GET]
+PASSED
+
+[TEST: PUT with 32 byte key, 10000 byte value]
+PASSED
+
+[TEST: PUT with 33 byte key, PUT with 10001 byte value]
+PASSED
+
+[TEST: Wipeout command]
+PASSED
+
+[TEST: Send garbage request]
+PASSED
+
+[TEST: Send request with bad checksum]
+PASSED
+
+[TEST: Server holds at least 32 MB]
+PASSED
+
+[TEST: Server does not fail when asked to store too much data]
+Server successfully stored 36880 KB
+PASSED
+
+[TEST: Server capacity stress test]
+PASSED
+
+[TEST: big GET requests]
+Completed 4096 GET requests in 557.380 ms
+Total successful requests: 8192
+Total failed requests: 0
+Total timed out: 0
+Testing if server is still alive...
+PASSED
+
+Completed 17 tests: 17 passed, 0 failed, 0 inconclusive
+
+---------------------------------------------------
+MULTI-THREADED THROUGHPUT TESTS ON localhost:12345
+---------------------------------------------------
+[TEST: 1 clients, 100 PUTs and GETs per client]
+Test completed in 53.728 milliseconds
+Total responses received: 200
+Total successful requests: 200
+Total failed requests: 0
+Total timed out: 0
+Average time per request: 0.269 ms
+Throughput: 3722.47 requests per second
+Goodput: 3722.47 requests per second
+
+[TEST: 4 clients, 100 PUTs and GETs per client]
+Test completed in 21.757 milliseconds
+Total responses received: 800
+Total successful requests: 800
+Total failed requests: 0
+Total timed out: 0
+Average time per request: 0.027 ms
+Throughput: 36768.97 requests per second
+Goodput: 36768.97 requests per second
+
+[TEST: 10 clients, 100 PUTs and GETs per client]
+Test completed in 25.717 milliseconds
+Total responses received: 2000
+Total successful requests: 2000
+Total failed requests: 0
+Total timed out: 0
+Average time per request: 0.013 ms
+Throughput: 77770.26 requests per second
+Goodput: 77770.26 requests per second
+
+[TEST: 100 clients, 100 PUTs and GETs per client]
+Test completed in 269.985 milliseconds
+Total responses received: 20000
+Total successful requests: 20000
+Total failed requests: 0
+Total timed out: 0
+Average time per request: 0.013 ms
+Throughput: 74078.25 requests per second
+Goodput: 74078.25 requests per second
+
+[TEST: shutdown server]
+PASSED
