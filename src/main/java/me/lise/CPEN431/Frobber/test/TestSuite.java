@@ -15,6 +15,24 @@ public abstract class TestSuite {
     protected InetAddress host;
     protected int port;
     protected TestClient client;
+	protected InetAddress[] hosts;
+	protected int[] ports;
+	
+	public enum RequestStatus {
+		SUCCESS, FAIL, TIMEOUT;
+		public String format() {
+			switch(this) {
+			case SUCCESS:
+				return "SUCCESS";
+			case FAIL:
+				return "FAIL";
+			case TIMEOUT:
+				return "TIMEOUT";
+			default:
+				return "";
+			}
+		}
+	}
 
     // along with a 4-byte key and 4-byte version number, this makes for a perfect 8 KB and is used in many tests
     static ByteString BIG_VALUE = ByteString.copyFrom(Arrays.copyOf(
@@ -50,10 +68,20 @@ public abstract class TestSuite {
         System.out.println(s);
     }
 
+    TestSuite(InetAddress[] hosts, int[] ports) throws IOException {
+    	this.hosts = hosts;
+    	this.ports = ports;
+        this.host = hosts[0];
+        this.port = ports[0];
+        this.client = new TestClient(this.host, this.port);
+    }
+
     TestSuite(InetAddress host, int port) throws IOException {
+    	this.hosts = null;
+    	this.ports = null;
         this.host = host;
         this.port = port;
-        this.client = new TestClient(host, port);
+        this.client = new TestClient(this.host, this.port);
     }
 
     abstract public void run() throws IOException;
