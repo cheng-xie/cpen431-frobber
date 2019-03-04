@@ -61,6 +61,8 @@ public class App {
 
                 InetAddress host = InetAddress.getByName(server[0]);
                 int port = Integer.parseInt(server[1]);
+                hosts.add(host);
+                ports.add(port);
             } catch (Exception e) {
                 // could be from socket error or error parsing the server & port. whatever, just try the next one
                 writer.append(String.format("Could not test: %s\n", line));
@@ -72,6 +74,8 @@ public class App {
         }
         
         InetAddress[] hostArray = new InetAddress[hosts.size()];
+        //System.out.println(hosts.toArray(hostArray));
+        //System.out.println(hostArray);
 		TestSuite testSuite = new MultiNodeTest(hosts.toArray(hostArray), ports.stream().mapToInt(i->i).toArray());
 		testSuite.run();
 		testSuite.closeAndWriteOut(writer);

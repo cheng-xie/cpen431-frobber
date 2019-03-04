@@ -8,6 +8,7 @@ import com.google.protobuf.ByteString;
 public class ByteStringGenerator {
 	private AtomicLong count;
 	public ByteStringGenerator() {
+		this.count = new AtomicLong();
 		reset();
 	}
 	

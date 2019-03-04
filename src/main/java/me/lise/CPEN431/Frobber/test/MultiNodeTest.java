@@ -97,6 +97,7 @@ public class MultiNodeTest extends TestSuite {
 							return TestResult.undecided("Initial Put Request Timeout");
 						} else if (localResponse.getErrCode() == ErrCode.OKAY) {
 							// on success remember the put and make sure we didnt overwrite anything
+							printLine(value.toString());
 							assert(referenceKVMap.put(key, value) == null);
 						} else {
 							return TestResult.failed(String.format("Initial Put Request Error"));
@@ -110,7 +111,8 @@ public class MultiNodeTest extends TestSuite {
 							if (localResponse == null) {
 								return TestResult.undecided("Get1 Request Timeout");
 							} else if (localResponse.getErrCode() == ErrCode.OKAY) {
-								if(referenceKVMap.get(key) != localResponse.getValue()) {
+								printLine(localResponse.getValue().toString() + '|' + referenceKVMap.get(key).toString());
+								if(referenceKVMap.get(key).equals(localResponse.getValue())) {
 									return TestResult.failed("Get1 Returned Incorrect Value");
 								}
 							} else {
@@ -162,12 +164,14 @@ public class MultiNodeTest extends TestSuite {
         int undecided = 0;
         for (Future<TestResult> f: testFutures) {
             try {
-            	switch(f.get().status) {
+				TestResult result = f.get();
+            	switch(result.status) {
             	case PASSED:
             		passed++;
             		break;
             	case FAILED:
             		failed++;
+            		printLine(result.getMsg());
             		break;
             	case UNDECIDED:
             		undecided++;

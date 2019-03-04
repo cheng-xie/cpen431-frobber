@@ -18,10 +18,10 @@ public class TestResult {
 	}
 
 	public TestStatus status;
-	String msg;
+	private String msg;
 	public TestResult(TestStatus status, String msg) {
 		this.status = status;
-		this.msg = msg;
+		this.setMsg(msg);
 	}
 	public static TestResult passed(String msg) {
 		return new TestResult(TestStatus.PASSED, msg);
@@ -33,6 +33,12 @@ public class TestResult {
 		return new TestResult(TestStatus.UNDECIDED, msg);
 	}
 	public String format() {
-		return String.format("Test %s with msg: <%s>", this.status.format(), this.msg);
+		return String.format("Test %s with msg: <%s>", this.status.format(), this.getMsg());
+	}
+	public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 }
